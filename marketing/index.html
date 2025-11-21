@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuduDevWe-AI - Desenvolvimento Web & Computação Quântica</title>
+    
+    <!-- Bootstrap 5.3 CSS (Versão estável mais recente) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-red: #dc3545;
+            --dark-bg: #0f172a;
+            --card-hover: translateY(-10px);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Navbar Customization */
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .navbar-brand {
+            font-weight: 900;
+            color: var(--primary-red) !important;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+        }
+        
+        @media (min-width: 992px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: #333;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-red) !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 180px 0 120px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Titles & Typography */
+        .section-title {
+            font-weight: 800;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: var(--primary-red);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Cards Animation */
+        .hover-card {
+            transition: all 0.4s ease;
+            border: none;
+            border-radius: 15px;
+        }
+
+        .hover-card:hover {
+            transform: var(--card-hover);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .icon-box {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        /* Gallery Styling */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gallery-img {
+            height: 300px;
+            object-fit: cover;
+            width: 100%;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 20px;
+            transform: translateY(100px);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.15);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #0b0f19;
+            color: #a0a0a0;
+            padding-top: 70px;
+            border-top: 4px solid var(--primary-red);
+        }
+
+        .footer-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .footer-link {
+            color: #a0a0a0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-red);
+            padding-left: 8px;
+        }
+        
+        .footer-link i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        /* Mobile Footer Accordion */
+        .footer-collapse {
+            display: block;
+        }
+
+        @media (max-width: 767px) {
+            .footer-collapse {
+                display: none;
+            }
+            .footer-collapse.show {
+                display: block;
+                animation: fadeIn 0.3s;
+            }
+            
+            .footer-toggler {
+                background: rgba(255,255,255,0.05);
+                color: white;
+                width: 100%;
+                text-align: left;
+                border: 1px solid rgba(255,255,255,0.1);
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+            }
+
+            .footer-title-desktop {
+                display: none;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .footer-toggler {
+                display: none;
+            }
+            .footer-collapse {
+                display: block !important;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
+  }
+}
+</script>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbar-example" data-bs-offset="100">
+
+    <!-- Navbar -->
+    <nav id="navbar-example" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-cpu-fill me-2 text-dark"></i>
+                <div class="d-flex flex-column">
+                    <span>DevWebAI<span class="text-dark">Preto</span></span>
+                    <small style="font-size: 0.6em; color: #666;">Computação<span class="text-primary">Q1uantica</span>Br</small>
+                </div>
+            </a>
+            
+            <!-- Hamburger Button -->
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Menu Links -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav text-center align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#missao">Missão & Valor</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#produto">Produto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#galeria">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                    <li class="nav-item mt-3 mt-lg-0 ms-lg-3">
+                        <a class="btn btn-danger rounded-pill px-4 fw-bold shadow-sm" href="#cadastrar">Cadastrar Cliente</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home / Hero Section -->
+    <section id="home" class="hero-section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 animate-fade-up">
+                    <h1 class="display-3 fw-bold mb-4">Bem Vindo A <br><span class="text-danger">DuduDevWe-AI</span></h1>
+                    <p class="lead mb-5 text-light opacity-75 fs-4">
+                        Desenvolvimento Web Moderno com Tecnologias de Ponta.<br>
+                        Transformando dados em insights e o futuro digital em realidade.
+                    </p>
+                    <div class="d-inline-block border border-danger bg-danger bg-opacity-10 rounded-pill px-4 py-2 mb-5">
+                        <small class="text-light fw-bold">por RaymondWebShop2 Dudu Web</small>
+                    </div>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="#cadastrar" class="btn btn-danger btn-lg rounded-pill px-5 py-3 fw-bold shadow">Começar Agora</a>
+                        <a href="#produto" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3 fw-bold">Nossos Serviços</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Section -->
+    <section id="sobre" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <div class="bg-danger position-absolute top-0 start-0 w-100 h-100 rounded-4" style="transform: rotate(-2deg); opacity: 0.1;"></div>
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded-4 shadow position-relative" alt="Equipe Sobre">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <span class="text-danger fw-bold text-uppercase ls-1">Quem Somos</span>
+                    <h2 class="fw-bold display-5 mb-4">Inovação & Tecnologia</h2>
+                    <p class="text-muted lead">Especialistas na fusão de Inteligência Artificial e Desenvolvimento Web de alta performance.</p>
+                    <p class="text-secondary">Nossa equipe possui profundo conhecimento em computação quântica teórica e aplicada, prontos para levar seu negócio ao próximo nível da era digital.</p>
+                    
+                    <div class="mt-5">
+                        <h5 class="fw-bold mb-3">- Nossa Stack Tecnológica</h5>
+                        <div class="row g-3">
+                            <!-- Frontend -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white rounded border-start border-4 border-primary shadow-sm h-100">
+                                    <h6 class="fw-bold text-primary"><i class="bi bi-window me-2"></i>Frontend</h6>
+                                    <p class="small text-muted mb-0">HTML5, CSS3, Bootstrap 5.6, JavaScript Moderno.</p>
+                                </div>
+                            </div>
+                            <!-- Backend -->
+                            <div class="col-md-6">
+                                <div class="p-3 bg-white rounded border-start border-4 border-success shadow-sm h-100">
+                                    <h6 class="fw-bold text-success"><i class="bi bi-hdd-rack me-2"></i>Backend</h6>
+                                    <p class="small text-muted mb-0">Node.js, APIs Robustas, MongoDB, Integração Cloud.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Missão & Valor Section -->
+    <section id="missao" class="py-5 bg-dark text-white">
+        <div class="container py-5">
+            <div class="text-center">
+                <h2 class="section-title text-white" style="border-bottom-color: white;">Missão & Valores</h2>
+            </div>
+            <div class="row g-4 mt-3">
+                <div class="col-md-4">
+                    <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4 hover-card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-bullseye icon-box text-danger"></i>
+                            <h3 class="h4 fw-bold">Missão</h3>
+                            <p class="opacity-75">Entregar soluções digitais que transcendem o comum, utilizando computação avançada para resolver problemas reais com eficiência.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4 hover-card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-heart-fill icon-box text-danger"></i>
+                            <h3 class="h4 fw-bold">Valores</h3>
+                            <p class="opacity-75">Ética inegociável, Transparência total, Segurança de Dados máxima e Paixão por tecnologia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4 hover-card">
+                        <div class="card-body text-center">
+                            <i class="bi bi-globe icon-box text-danger"></i>
+                            <h3 class="h4 fw-bold">Visão</h3>
+                            <p class="opacity-75">Ser referência mundial em Web 3.0, IA Generativa e democratização de sistemas quânticos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produto / Serviços Section -->
+    <section id="produto" class="py-5">
+        <div class="container py-5">
+            <div class="text-center">
+                <h2 class="section-title">Nossos Serviços</h2>
+                <p class="text-muted mx-auto col-lg-8">Soluções completas de ponta a ponta para alavancar o seu negócio na era digital.</p>
+            </div>
+            <div class="row g-4 mt-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 hover-card p-4 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="icon-box text-primary"><i class="bi bi-robot"></i></div>
+                            <h4 class="card-title fw-bold">Inteligência Artificial</h4>
+                            <p class="card-text text-muted mt-3">Chatbots inteligentes, análise preditiva de dados e automação de processos complexos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 hover-card p-4 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="icon-box text-dark"><i class="bi bi-cpu"></i></div>
+                            <h4 class="card-title fw-bold">Computação Quântica</h4>
+                            <p class="card-text text-muted mt-3">Consultoria estratégica e desenvolvimento de algoritmos preparados para a era quântica.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 hover-card p-4 text-center border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="icon-box text-success"><i class="bi bi-code-slash"></i></div>
+                            <h4 class="card-title fw-bold">Desenvolvimento Web</h4>
+                            <p class="card-text text-muted mt-3">Sites ultra-rápidos, E-commerce escalável e Aplicações Web Progressivas (PWA).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section id="galeria" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Galeria de Projetos</h2>
+                <p class="text-muted">Explore nossa infraestrutura e projetos recentes.</p>
+            </div>
+            <div class="row g-4">
+                <!-- Imagem 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" class="gallery-img" alt="Coding">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Codificação Clean</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagem 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80" class="gallery-img" alt="Cyber Security">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Cibersegurança</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagem 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80" class="gallery-img" alt="Matrix Data">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Big Data</h5>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Imagem Hardware (Solicitada) -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <!-- Imagem específica de Hardware/Chip -->
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1740&auto=format&fit=crop" class="gallery-img" alt="Hardware">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Hardware Avançado</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Imagem 5 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80" class="gallery-img" alt="Robotics">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Robótica & IA</h5>
+                        </div>
+                    </div>
+                </div>
+                <!-- Imagem 6 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" class="gallery-img" alt="Analytics">
+                        <div class="gallery-overlay">
+                            <h5 class="text-white fw-bold">Analytics</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cadastrar Cliente Section -->
+    <section id="cadastrar" class="py-5 bg-dark text-white">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="card-header bg-danger text-white text-center p-4">
+                            <h3 class="mb-0 fw-bold">Cadastrar Cliente</h3>
+                            <p class="mb-0 opacity-75">Junte-se a nós para construir o futuro</p>
+                        </div>
+                        <div class="card-body p-5 bg-white text-dark">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Nome Completo</label>
+                                        <input type="text" class="form-control p-3 bg-light border-0" required placeholder="Seu nome">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">Telefone / WhatsApp</label>
+                                        <input type="tel" class="form-control p-3 bg-light border-0" placeholder="(21) 99733-2750" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">Email</label>
+                                        <input type="email" class="form-control p-3 bg-light border-0" required placeholder="seuemail@exemplo.com">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-bold">Serviço de Interesse</label>
+                                        <select class="form-select p-3 bg-light border-0">
+                                            <option selected>Selecione uma opção...</option>
+                                            <option>Desenvolvimento Web Completo</option>
+                                            <option>Consultoria em IA</option>
+                                            <option>Computação Quântica</option>
+                                            <option>Outros</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="button" class="btn btn-dark w-100 py-3 fw-bold rounded-3 shadow hover-card" onclick="alert('Cadastro realizado com sucesso!')">
+                                            ENVIAR CADASTRO <i class="bi bi-send ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Fale Conosco</h2>
+            </div>
+            <div class="row text-center g-4 justify-content-center">
+                <div class="col-md-4 col-lg-3">
+                    <div class="p-4 bg-light rounded-4 h-100 hover-card shadow-sm">
+                        <div class="mb-3 d-inline-block bg-success bg-opacity-10 p-3 rounded-circle text-success">
+                            <i class="bi bi-whatsapp display-6"></i>
+                        </div>
+                        <h4 class="fw-bold">WhatsApp</h4>
+                        <p class="fs-5 text-dark mb-3">(21) 99733-2750</p>
+                        <a href="https://wa.me/5521997332750" target="_blank" class="btn btn-success rounded-pill px-4">Iniciar Conversa</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="p-4 bg-light rounded-4 h-100 hover-card shadow-sm">
+                        <div class="mb-3 d-inline-block bg-danger bg-opacity-10 p-3 rounded-circle text-danger">
+                            <i class="bi bi-envelope-at display-6"></i>
+                        </div>
+                        <h4 class="fw-bold">Email</h4>
+                        <p class="small text-muted mb-3 text-break">eduardoraymondbeniste999@gmail.com</p>
+                        <a href="mailto:eduardoraymondbeniste999@gmail.com" class="btn btn-danger rounded-pill px-4">Enviar Email</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3">
+                    <div class="p-4 bg-light rounded-4 h-100 hover-card shadow-sm">
+                        <div class="mb-3 d-inline-block bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                            <i class="bi bi-geo-alt-fill display-6"></i>
+                        </div>
+                        <h4 class="fw-bold">Localização</h4>
+                        <p class="text-muted">Rio de Janeiro, RJ<br>Brasil</p>
+                        <span class="badge bg-secondary">Atendimento Remoto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- Brand -->
+                <div class="col-lg-5 mb-4">
+                    <h4 class="text-danger fw-bold mb-3 d-flex align-items-center">
+                        <i class="bi bi-cpu-fill me-2"></i>DevWebAI
+                    </h4>
+                    <p class="small mb-4" style="max-width: 400px;">
+                        Desenvolvimento Web de alta performance, Inteligência Artificial e Computação Quântica. Construindo o futuro digital com segurança e inovação.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-white p-2 bg-secondary bg-opacity-25 rounded-circle"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white p-2 bg-secondary bg-opacity-25 rounded-circle"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white p-2 bg-secondary bg-opacity-25 rounded-circle"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation Menu (Accordion on Mobile) -->
+                <div class="col-lg-3 col-md-6">
+                    <!-- Mobile Button -->
+                    <button class="footer-toggler" type="button" onclick="toggleFooter('navFooter')">
+                        Navegação <i class="bi bi-chevron-down"></i>
+                    </button>
+                    
+                    <h5 class="footer-title footer-title-desktop">Links Rápidos</h5>
+                    <div id="navFooter" class="footer-collapse">
+                        <a href="#home" class="footer-link"><i class="bi bi-chevron-right"></i> Home</a>
+                        <a href="#sobre" class="footer-link"><i class="bi bi-chevron-right"></i> Sobre</a>
+                        <a href="#missao" class="footer-link"><i class="bi bi-chevron-right"></i> Missão & Valor</a>
+                        <a href="#produto" class="footer-link"><i class="bi bi-chevron-right"></i> Serviços</a>
+                        <a href="#galeria" class="footer-link"><i class="bi bi-chevron-right"></i> Galeria</a>
+                        <a href="#cadastrar" class="footer-link"><i class="bi bi-chevron-right"></i> Cadastrar</a>
+                    </div>
+                </div>
+
+                <!-- Contact Info (Accordion on Mobile) -->
+                <div class="col-lg-4 col-md-6">
+                    <button class="footer-toggler mt-2 mt-md-0" type="button" onclick="toggleFooter('contactFooter')">
+                        Contatos <i class="bi bi-chevron-down"></i>
+                    </button>
+                    
+                    <h5 class="footer-title footer-title-desktop">Fale Conosco</h5>
+                    <div id="contactFooter" class="footer-collapse">
+                        <p class="mb-3 d-flex align-items-start">
+                            <i class="bi bi-envelope me-3 text-danger mt-1"></i> 
+                            <span class="small">eduardoraymondbeniste999@gmail.com</span>
+                        </p>
+                        <p class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-whatsapp me-3 text-success"></i> 
+                            <span>(21) 99733-2750</span>
+                        </p>
+                        <p class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-geo-alt me-3 text-primary"></i> 
+                            <span>Rio de Janeiro, Brasil</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row mt-5 pt-4 border-top border-secondary border-opacity-25">
+                <div class="col-12 text-center pb-4">
+                    <p class="mb-0 small opacity-75">© 2025 DevWebAI. Todos os direitos reservados.</p>
+                    <p class="mb-0 small mt-2 text-muted">Desenvolvido por <span class="text-danger fw-bold">RaymondWebShop2 Dudu Web</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS for Mobile Footer Accordion -->
+    <script>
+        function toggleFooter(id) {
+            const element = document.getElementById(id);
+            // Toggle class 'show'
+            if (element.classList.contains('show')) {
+                element.classList.remove('show');
+            } else {
+                element.classList.add('show');
+            }
+        }
+
+        // Close navbar on link click (Mobile UX)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse.classList.contains('show')) {
+                    new bootstrap.Collapse(navbarCollapse).hide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
